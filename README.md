@@ -10,7 +10,7 @@ This will allow you to set up a virtual environment with the packages included a
 pip install pipenv
 ```
 
-## Starting a virtual environment inside the Django project
+## 3: Starting a virtual environment inside the Django project
 
 First change the directory to the one cloned from this repository, and  then use the command:
 
@@ -24,13 +24,13 @@ This command will install all the deTdencies used to set up the project, then yo
 pipenv shell
 ```
 
-## Once you have activated the virtual environment and able to use the pipenv shell, install the modules used to make the project works (basically npm install, using all the modules saved in the .json)
+## 4: Once you have activated the virtual environment and able to use the pipenv shell, install the modules used to make the project works (basically npm install, using all the modules saved in the .json)
 
 ```
 pip install -r requirements.txt
 ```
 
-## Finally to run the server, just use the following:
+## 5: Finally to run the server, just use the following:
 
 ```
 python manage.py runserver
