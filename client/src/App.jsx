@@ -1,9 +1,17 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function App() {
   const [text, setText] = useState("");
   const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/')
+      .then(response => response.json())
+      .then(data => console.log("yay: ", data.data))
+      .catch(error => console.error("Something went wrong: ", error));
+  }, [])
+
   const handleTodos = () => {
     setTodos([...todos, text]);
     setText("");
