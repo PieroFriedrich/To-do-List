@@ -1,10 +1,11 @@
-#  To make it easier for us, I just decided to add this readme with some instructions, but if anyone has doubts just text me in the group chat. This is how to clone and set up the environment. I would also watch the tutorials I’ve sent in the group, so it is easier to understand how the Django works.
+# Set-up Instructions
 
-## 1: Install python if you don’t have it installed already 
+## 1: Install python
+(if you don’t have it installed already) at [python official website](https://www.python.org/downloads/)
 
 ## 2: Install pipenv
 
-This will allow you to set up a virtual environment with the packages included already (that’s what I have understood when watching the tutorials about it)
+This will allow you to set up a virtual environment with the included packages.
 
 ```
 pip install pipenv
@@ -12,7 +13,7 @@ pip install pipenv
 
 ## 3: Starting a virtual environment inside the Django project
 
-First change the directory to the one cloned from this repository, and  then use the command:
+Go to To-do-list/backend cloned from this repository, and  then use the command:
 
 ```
 pipenv install
@@ -24,14 +25,38 @@ This command will install all the deTdencies used to set up the project, then yo
 pipenv shell
 ```
 
-## 4: Once you have activated the virtual environment and able to use the pipenv shell, install the modules used to make the project works (basically npm install, using all the modules saved in the .json)
+## 4: Once you have activated the virtual environment and able to use the pipenv shell, install the modules used to make the project works.
 
 ```
 pip install -r requirements.txt
 ```
+## 5: Generate a new secret key for you environment
+```
+python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+```
+Create a .env file inside this folder with the secret key generated
 
-## 5: Finally to run the server, just use the following:
+SECRET_KEY=your_django_secret_key
+
+## 6: Finally to run the back-end server, just use the following:
 
 ```
 python manage.py runserver
 ```
+
+## 7: Run the front-end
+
+Open a terminal and change to the client folder and install the necessary packages
+
+```
+cd ../client
+npm install
+```
+
+After you will be able to run the front-end and use this app!
+```
+npm run dev
+```
+
+## 8: Go to the address
+At your preffered brownser go to the app <http://localhost:5173>
