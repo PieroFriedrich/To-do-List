@@ -39,13 +39,16 @@ function App() {
 
   return (
     <div className="App">
-      <h1>To-do List</h1>
-      <input
-        type="text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
-      <button onClick={handleAddTodo}>Add note</button>
+      <div>
+        <h1>To-do List</h1>
+        <input
+          type="text"
+          value={text}
+          maxLength={25}
+          onChange={(e) => setText(e.target.value)}
+        />
+        <button onClick={handleAddTodo}>Add note</button>
+      </div>
       <ul>
         {todos.map((todo, index) => (
           <li key={index}>
@@ -54,15 +57,23 @@ function App() {
                 <input
                   type="text"
                   value={editText}
+                  maxLength={25}
                   onChange={(e) => setEditText(e.target.value)}
                 />
                 <button onClick={() => handleSaveEdit(index)}>Save</button>
               </div>
             ) : (
-              <div>
-                {todo}
-                <button onClick={() => handleEditTodo(index)}>Edit</button>
-                <button onClick={() => handleDeleteTodo(index)}>Delete</button>
+              <div className="todo-container">
+                <span className="todo-item">{todo}</span>
+                <div>
+                  <button onClick={() => handleEditTodo(index)}>Edit</button>
+                  <button
+                    className="delete"
+                    onClick={() => handleDeleteTodo(index)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             )}
           </li>
