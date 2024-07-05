@@ -3,19 +3,37 @@ import React, { useEffect, useState } from "react";
 
 function App() {
   const [text, setText] = useState("");
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState({});
   const [editIndex, setEditIndex] = useState(null);
   const [editText, setEditText] = useState("");
+  const [keys, setKeys] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:3000/")
       .then((response) => response.json())
-      .then((data) => console.log("yay: ", data.data))
+      .then((data) => {
+        setKeys(Object.keys(data));
+        setTodos(data);
+      })
       .catch((error) => console.error("Something went wrong: ", error));
   }, []);
 
+  console.log(keys);
+
   const handleAddTodo = () => {
-    setTodos([...todos, text]);
+    let newItem = {
+      id: keys.length + 1,
+      content: text
+    }
+
+    fetch("http://localhost:3000/add/", { method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(newItem)})
+      .then((response) => response.json())
+      .then((data) => {
+        setKeys(Object.keys(data));
+        setTodos(data);
+      })
+      .catch((error) => console.error("Something went wrong: ", error));
+
     setText("");
   };
 
@@ -50,13 +68,13 @@ function App() {
         <button onClick={handleAddTodo}>Add note</button>
       </div>
       <ul>
-        {todos.map((todo, index) => (
+        {keys.map( index => (
           <li key={index}>
             {editIndex === index ? (
               <div>
                 <input
                   type="text"
-                  value={editText}
+                  value={todos[index]}
                   maxLength={25}
                   onChange={(e) => setEditText(e.target.value)}
                 />
@@ -64,7 +82,7 @@ function App() {
               </div>
             ) : (
               <div className="todo-container">
-                <span className="todo-item">{todo}</span>
+                <span className="todo-item">{todos[index]}</span>
                 <div>
                   <button onClick={() => handleEditTodo(index)}>Edit</button>
                   <button
