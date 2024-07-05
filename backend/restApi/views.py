@@ -16,7 +16,7 @@ def addTodoItem(request):
     newItem = newItem.decode('utf-8')
     newItem = json.loads(newItem)
     
-    data.addItem(newItem["id"], newItem["content"])
+    data.addItem(newItem)
 
     list = data.getAllItems();
     return Response(list);
@@ -38,7 +38,7 @@ def deleteTodoItem(request):
     index = index.decode('utf-8')
     index = json.loads(index)
     
-    data.removeItem(int(index))
+    data.removeItem(index)
 
     list = data.getAllItems();
     return Response(list);

@@ -6,20 +6,16 @@ function App() {
   const [todos, setTodos] = useState({});
   const [editIndex, setEditIndex] = useState(null);
   const [editText, setEditText] = useState("");
-  const [keys, setKeys] = useState([]);
   const [err, setErr] = useState("");
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/")
       .then((response) => response.json())
       .then((data) => {
-        setKeys(Object.keys(data));
         setTodos(data);
       })
       .catch((error) => console.error("Something went wrong: ", error));
   }, []);
-
-  // console.log(keys);
 
   const handleAddTodo = () => {
     if (text.trim() === "") {
@@ -27,16 +23,10 @@ function App() {
       return;
     }
 
-    let newItem = {
-      id: keys.length + 1,
-      content: text.trim()
-    }
-
-    fetch("http://127.0.0.1:8000/add/", { method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(newItem)})
+    fetch("http://127.0.0.1:8000/add/", { method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(text.trim())})
       .then((response) => response.json())
       .then((data) => {
         setErr("");
-        setKeys(Object.keys(data));
         setTodos(data);
       })
       .catch((error) => console.error("Something went wrong: ", error));
@@ -76,7 +66,6 @@ function App() {
     fetch("http://127.0.0.1:8000/delete/", { method: "DELETE", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(index)})
     .then((response) => response.json())
     .then((data) => {
-      setKeys(Object.keys(data));
       setTodos(data);
     })
     .catch((error) => console.error("Something went wrong: ", error));
@@ -84,6 +73,7 @@ function App() {
 
   return (
     <div className="App">
+      {err && <div className="error">{err}</div>}
       <div>
         <h1>To-do List</h1>
         <input
@@ -94,9 +84,8 @@ function App() {
         />
         <button onClick={handleAddTodo}>Add note</button>
       </div>
-      {err && <div className="error">{err}</div>}
       <ul>
-        {keys.map( index => (
+        {Object.keys(todos).map( index => (
           <li key={index}>
             {editIndex === index ? (
               <div className="todo-container">

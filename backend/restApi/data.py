@@ -1,16 +1,21 @@
-todo_list = {1:"test1", 2:"test2"};
+import uuid
 
-def addItem(id, content):
-    todo_list[id] = content;
+todo_list = {}
+
+def generate_key():
+    return str(uuid.uuid4()) 
+
+def addItem(content):
+    id = generate_key()
+    todo_list[id] = content
 
 def removeItem(id):
-    print("Todolist before: ", todo_list)
-    todo_list.pop(id, None);
-    print("Todolist after: ", todo_list)
-
+    if id in todo_list:
+        del todo_list[id]
 
 def updateItem(id, content):
-    todo_list[id] = content;
+    if id in todo_list:
+        todo_list[id] = content
 
 def getAllItems():
-    return todo_list;
+    return todo_list

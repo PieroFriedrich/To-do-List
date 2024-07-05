@@ -58,8 +58,10 @@ input,
 
 .error{
   font-family: Arial, Helvetica, sans-serif;
-  color: red;
-  font-weight: bold;
+  background-color: #c10f0fc4;
+  color: beige;
+  font-size: 0.9em;
+  margin-top: 5px;
 }
 
 @media (min-width: 700px) {
