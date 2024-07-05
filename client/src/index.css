@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&display=swap');
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Playwrite England SemiJoined', 'Playwrite Deutschland Grundschrift', Arial;
   line-height: 1.5;
   font-weight: 400;
 

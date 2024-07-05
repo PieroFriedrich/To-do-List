@@ -4,33 +4,30 @@
 (if you don’t have it installed already) at [python official website](https://www.python.org/downloads/)
 
 ## 2: Install pipenv
-
 This will allow you to set up a virtual environment with the included packages.
-
+_You may need to run your shell as an administrator_
 ```
 pip install pipenv
 ```
 
 ## 3: Starting a virtual environment inside the Django project
-
 Go to To-do-list/backend cloned from this repository, and  then use the command:
-
 ```
 pipenv install
 ```
-
-This command will install all the deTdencies used to set up the project, then you just have to run:
+This command will install all the depedencies used to set up the project, then you just have to run:
 
 ```
 pipenv shell
 ```
 
-## 4: Once you have activated the virtual environment and able to use the pipenv shell, install the modules used to make the project works.
-
+## 4: Install the modules
+Once you have activated the virtual environment and you are able to use the pipenv shell, install the modules to make the project works.
 ```
 pip install -r requirements.txt
 ```
 ## 5: Generate a new secret key for you environment
+You need a secret key for this project, the following command you generate a secret key startinh with _django-insecure-$_
 ```
 python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
 ```

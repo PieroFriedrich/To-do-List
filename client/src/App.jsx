@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [text, setText] = useState("");
@@ -8,11 +8,24 @@ function App() {
   const [editText, setEditText] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3000/")
+    fetch("http://127.0.0.1:8000/")
       .then((response) => response.json())
       .then((data) => console.log("yay: ", data.data))
       .catch((error) => console.error("Something went wrong: ", error));
   }, []);
+
+  /* Attempt GRACE
+  useEffect(() => {
+    const data = localStorage.getItem('listOfTodos');
+    if (data){
+      setTodos(JSON.parse(data));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('listOfTodos', JSON.stringify(todos));
+  },[todos]);
+  */
 
   const handleAddTodo = () => {
     setTodos([...todos, text]);
@@ -66,12 +79,14 @@ function App() {
               <div className="todo-container">
                 <span className="todo-item">{todo}</span>
                 <div>
-                  <button onClick={() => handleEditTodo(index)}>Edit</button>
+                  <button onClick={() => handleEditTodo(index)}>
+                  <i className="fa-solid fa-pen-to-square"></i>
+                  </button>
                   <button
                     className="delete"
                     onClick={() => handleDeleteTodo(index)}
                   >
-                    Delete
+                    <i className="fa-regular fa-trash-can"></i>
                   </button>
                 </div>
               </div>

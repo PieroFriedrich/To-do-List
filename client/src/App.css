@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Playwrite+CO:wght@100..400&family=Playwrite+RO:wght@100..400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&display=swap');
 body {
   background-color: beige;
   height: 100vh;
   margin: 0;
   color: black;
-  font-family: "Playwrite CO", cursive;
+  font-family:  'Playwrite GB S','Playwrite DE Grund',Arial;
 }
 .App {
   text-align: center;
@@ -37,6 +37,7 @@ input {
   color: black;
   border-radius: 5px;
   height: 25px;
+  width: 300px;
 }
 
 input,
