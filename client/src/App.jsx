@@ -7,6 +7,7 @@ function App() {
   const [editIndex, setEditIndex] = useState(null);
   const [editText, setEditText] = useState("");
   const [keys, setKeys] = useState([]);
+  const [err, setErr] = useState("");
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/")
@@ -18,17 +19,23 @@ function App() {
       .catch((error) => console.error("Something went wrong: ", error));
   }, []);
 
-  console.log(keys);
+  // console.log(keys);
 
   const handleAddTodo = () => {
-    let newItem = {
-      id: keys.length + 1,
-      content: text
+    if (text.trim() === "") {
+      setErr("Todo content cannot be empty.");
+      return;
     }
 
-    fetch("http://localhost:3000/add/", { method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(newItem)})
+    let newItem = {
+      id: keys.length + 1,
+      content: text.trim()
+    }
+
+    fetch("http://127.0.0.1:8000/add/", { method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(newItem)})
       .then((response) => response.json())
       .then((data) => {
+        setErr("");
         setKeys(Object.keys(data));
         setTodos(data);
       })
@@ -43,16 +50,36 @@ function App() {
   };
 
   const handleSaveEdit = (index) => {
-    const updatedTodos = todos.map((todo, i) =>
-      i === index ? editText : todo
-    );
-    setTodos(updatedTodos);
+    if (editText.trim() === "") {
+      setErr("Todo content cannot be empty.");
+      return;
+    }
+
+    let editItem = {
+      id: index,
+      content: editText.trim()
+    }
+
+    fetch("http://127.0.0.1:8000/edit/", { method: "PUT", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(editItem)})
+    .then((response) => response.json())
+    .then((data) => {
+      setErr("");
+      setTodos(data);
+    })
+    .catch((error) => console.error("Something went wrong: ", error));
+
     setEditIndex(null);
     setEditText("");
   };
 
   const handleDeleteTodo = (index) => {
-    setTodos(todos.filter((_, i) => i !== index));
+    fetch("http://127.0.0.1:8000/delete/", { method: "DELETE", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(index)})
+    .then((response) => response.json())
+    .then((data) => {
+      setKeys(Object.keys(data));
+      setTodos(data);
+    })
+    .catch((error) => console.error("Something went wrong: ", error));
   };
 
   return (
@@ -67,14 +94,15 @@ function App() {
         />
         <button onClick={handleAddTodo}>Add note</button>
       </div>
+      {err && <div className="error">{err}</div>}
       <ul>
         {keys.map( index => (
           <li key={index}>
             {editIndex === index ? (
-              <div>
+              <div className="todo-container">
                 <input
                   type="text"
-                  value={todos[index]}
+                  value={editText}
                   maxLength={25}
                   onChange={(e) => setEditText(e.target.value)}
                 />

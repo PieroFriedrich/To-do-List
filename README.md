@@ -46,7 +46,7 @@ python manage.py runserver
 Open a terminal and change to the client folder and install the necessary packages
 
 ```
-cd ../client
+cd client
 npm install
 ```
 

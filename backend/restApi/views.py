@@ -20,3 +20,25 @@ def addTodoItem(request):
 
     list = data.getAllItems();
     return Response(list);
+
+@api_view(['PUT'])
+def editTodoItem(request):
+    editItem = request.body
+    editItem = editItem.decode('utf-8')
+    editItem = json.loads(editItem)
+    
+    data.updateItem(editItem["id"], editItem["content"])
+
+    list = data.getAllItems();
+    return Response(list);
+
+@api_view(['DELETE'])
+def deleteTodoItem(request):
+    index = request.body
+    index = index.decode('utf-8')
+    index = json.loads(index)
+    
+    data.removeItem(int(index))
+
+    list = data.getAllItems();
+    return Response(list);

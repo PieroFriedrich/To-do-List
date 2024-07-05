@@ -4,7 +4,10 @@ def addItem(id, content):
     todo_list[id] = content;
 
 def removeItem(id):
-    todo_list.pop(id);
+    print("Todolist before: ", todo_list)
+    todo_list.pop(id, None);
+    print("Todolist after: ", todo_list)
+
 
 def updateItem(id, content):
     todo_list[id] = content;
