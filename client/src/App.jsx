@@ -23,7 +23,11 @@ function App() {
       return;
     }
 
-    fetch("http://127.0.0.1:8000/add/", { method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(text.trim())})
+    fetch("http://127.0.0.1:8000/add/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(text.trim()),
+    })
       .then((response) => response.json())
       .then((data) => {
         setErr("");
@@ -47,28 +51,36 @@ function App() {
 
     let editItem = {
       id: index,
-      content: editText.trim()
-    }
+      content: editText.trim(),
+    };
 
-    fetch("http://127.0.0.1:8000/edit/", { method: "PUT", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(editItem)})
-    .then((response) => response.json())
-    .then((data) => {
-      setErr("");
-      setTodos(data);
+    fetch("http://127.0.0.1:8000/edit/", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(editItem),
     })
-    .catch((error) => console.error("Something went wrong: ", error));
+      .then((response) => response.json())
+      .then((data) => {
+        setErr("");
+        setTodos(data);
+      })
+      .catch((error) => console.error("Something went wrong: ", error));
 
     setEditIndex(null);
     setEditText("");
   };
 
   const handleDeleteTodo = (index) => {
-    fetch("http://127.0.0.1:8000/delete/", { method: "DELETE", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(index)})
-    .then((response) => response.json())
-    .then((data) => {
-      setTodos(data);
+    fetch("http://127.0.0.1:8000/delete/", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(index),
     })
-    .catch((error) => console.error("Something went wrong: ", error));
+      .then((response) => response.json())
+      .then((data) => {
+        setTodos(data);
+      })
+      .catch((error) => console.error("Something went wrong: ", error));
   };
 
   return (
@@ -79,20 +91,20 @@ function App() {
         <input
           type="text"
           value={text}
-          maxLength={25}
+          maxLength={30}
           onChange={(e) => setText(e.target.value)}
         />
         <button onClick={handleAddTodo}>Add note</button>
       </div>
       <ul>
-        {Object.keys(todos).map( index => (
+        {Object.keys(todos).map((index) => (
           <li key={index}>
             {editIndex === index ? (
               <div className="todo-container">
                 <input
                   type="text"
                   value={editText}
-                  maxLength={25}
+                  maxLength={30}
                   onChange={(e) => setEditText(e.target.value)}
                 />
                 <button onClick={() => handleSaveEdit(index)}>Save</button>
@@ -102,7 +114,7 @@ function App() {
                 <span className="todo-item">{todos[index]}</span>
                 <div>
                   <button onClick={() => handleEditTodo(index)}>
-                  <i className="fa-solid fa-pen-to-square"></i>
+                    <i className="fa-solid fa-pen-to-square"></i>
                   </button>
                   <button
                     className="delete"
