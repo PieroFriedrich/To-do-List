@@ -13,9 +13,13 @@ _You may need to run your shell as an administrator_
 pip install pipenv
 ```
 
-## 3: Starting a virtual environment inside the Django project
+## 3: Move to the Backend Folder
 
-Go to To-do-list/backend cloned from this repository, and then use the command:
+```
+cd backend
+```
+
+## 4: Starting a virtual environment inside the Django project
 
 ```
 pipenv install
@@ -25,12 +29,6 @@ This command will install all the depedencies used to set up the project, then y
 
 ```
 pipenv shell
-```
-
-## 4: Move to the Backend Folder
-
-```
-cd backend
 ```
 
 ## 5: Install the modules
